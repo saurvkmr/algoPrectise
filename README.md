@@ -1,0 +1,2 @@
+# algoPrectise
+For interviews
