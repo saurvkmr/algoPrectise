@@ -4,36 +4,30 @@ import kotlin.math.abs
 
 fun main() {
     println(checkIfOneEditAway("pale", "baale"))
+    println(checkIfOneEditAway("apple", "aple"))
 }
 
 fun checkIfOneEditAway(first: String, second: String): Boolean {
+    if (abs(second.length - first.length) > 1)
+        return false
+
     var firstIndex = 0
     var secondIndex = 0
-    var isOneEditAway = true
-    var editCount = 0
-    while (isOneEditAway && firstIndex < first.length && secondIndex < second.length) {
+    var foundDifference = false
+    while (firstIndex < first.length && secondIndex < second.length) {
         if (first[firstIndex] == second[secondIndex]) {
             firstIndex++
             secondIndex++
         } else {
-            if (editCount == 1) {
-                isOneEditAway = false
-            }
-            editCount++
-            if (first.length > second.length) {
-                firstIndex++
-            } else if (second.length > first.length) {
-                secondIndex++
-            } else {
+            if (foundDifference) return false
+            foundDifference = true
+            if (first.length > second.length) firstIndex++
+            else if (second.length > first.length) secondIndex++
+            else {
                 firstIndex++
                 secondIndex++
             }
         }
     }
-    if (editCount == 0 && abs(second.length - first.length) > 1) {
-        isOneEditAway = false
-    } else if (editCount > 1) {
-        isOneEditAway = false
-    }
-    return isOneEditAway
+    return true
 }
